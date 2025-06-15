@@ -7,24 +7,71 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f5f5f5;
+      background: url('https://images.unsplash.com/photo-1618005198919-d3d4b9d9cfd0?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+      background-size: cover;
       margin: 0;
       padding: 0;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     header {
-      background-color: #24292e;
+      background-color: rgba(36, 41, 46, 0.9);
       color: white;
       padding: 20px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    header img {
+      height: 50px;
+    }
+
+    .main-wrapper {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .side-banner {
+      width: 150px;
+      margin: 20px 10px;
+    }
+
+    .side-banner img {
+      width: 100%;
+      border-radius: 10px;
     }
 
     .container {
       max-width: 1000px;
-      margin: 30px auto;
-      background: white;
+      background: rgba(255, 255, 255, 0.95);
       padding: 20px;
+      margin: 20px;
       border-radius: 10px;
+      flex: 1;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .center-banner {
+      margin-bottom: 20px;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .center-banner img {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 10px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .class-card {
@@ -36,11 +83,11 @@
       width: 280px;
       vertical-align: top;
       background-color: #fafafa;
+      transition: transform 0.3s;
     }
 
-    img {
-      max-width: 100%;
-      border-radius: 10px;
+    .class-card:hover {
+      transform: scale(1.03);
     }
 
     .price {
@@ -69,32 +116,99 @@
       border-top: 1px solid #ccc;
       padding-top: 10px;
       font-size: 14px;
+      animation: fadeInPix 0.5s ease-in-out;
+    }
+
+    @keyframes fadeInPix {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     footer {
       margin-top: 40px;
       font-size: 14px;
-      color: #666;
+      color: #fff;
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 15px;
+      width: 100%;
+    }
+
+    .obs {
+      font-size: 16px;
+      color: #f1c40f;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    #music-controls {
+      margin-top: 10px;
+    }
+
+    #music-button {
+      background-color: #e67e22;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    #music-button:hover {
+      background-color: #d35400;
     }
   </style>
 </head>
 <body>
 
+<!-- Música de fundo -->
+<audio id="bg-music" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/08/04/audio_7cb1c3d770.mp3" type="audio/mp3">
+</audio>
+
+<!-- Som de clique -->
+<audio id="click-sound">
+  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_d5ba243a27.mp3" type="audio/mp3">
+</audio>
+
 <header>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Roblox_Logo_2022.svg" alt="Roblox Logo">
   <h1>Loja Roblox - Personagens</h1>
 </header>
 
-<div class="container">
-  <h2>Escolha seu Personagem Exclusivo</h2>
+<!-- Botão de controle da música -->
+<div id="music-controls">
+  <button id="music-button" onclick="toggleMusic()">Tocar Música</button>
+</div>
 
-  <!-- Lista de classes -->
-  <div id="classes">
-    <!-- JavaScript irá inserir aqui -->
+<div class="main-wrapper">
+  <div class="side-banner">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Roblox_Studio_Icon.png/240px-Roblox_Studio_Icon.png" alt="Banner Lateral Roblox">
+  </div>
+
+  <div class="container">
+    <div class="center-banner">
+      <img src="https://via.placeholder.com/600x200.png?text=Roblox+Trilhos+Mortos" alt="Roblox Trilhos Mortos">
+    </div>
+
+    <h2>Escolha seu Personagem Exclusivo</h2>
+
+    <div id="classes">
+      <!-- JavaScript insere aqui -->
+    </div>
+  </div>
+
+  <div class="side-banner">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Roblox_game_icon.png/240px-Roblox_game_icon.png" alt="Banner Lateral Roblox">
   </div>
 </div>
 
 <footer>
   © 2025 Loja Roblox - Todos os direitos reservados.
+  <div class="obs">
+    Obs: Depois da compra, envie via WhatsApp qual a Classe comprada.
+  </div>
 </footer>
 
 <script>
@@ -106,6 +220,7 @@
   ];
 
   const container = document.getElementById("classes");
+  const clickSound = document.getElementById("click-sound");
 
   classes.forEach((classe, index) => {
     const id = `pix-${index}`;
@@ -130,7 +245,20 @@
   });
 
   function mostrarPix(id) {
+    clickSound.play();
     document.getElementById(id).style.display = "block";
+  }
+
+  function toggleMusic() {
+    const music = document.getElementById("bg-music");
+    const button = document.getElementById("music-button");
+    if (music.paused) {
+      music.play();
+      button.innerText = "Pausar Música";
+    } else {
+      music.pause();
+      button.innerText = "Tocar Música";
+    }
   }
 </script>
 
