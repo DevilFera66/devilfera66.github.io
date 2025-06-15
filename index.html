@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Loja Roblox - Personagem Classes</title>
+  <title>Loja Roblox - Personagens</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -20,31 +20,42 @@
     }
 
     .container {
-      max-width: 800px;
+      max-width: 1000px;
       margin: 30px auto;
       background: white;
       padding: 20px;
       border-radius: 10px;
     }
 
+    .class-card {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 15px;
+      display: inline-block;
+      width: 280px;
+      vertical-align: top;
+      background-color: #fafafa;
+    }
+
     img {
-      max-width: 300px;
+      max-width: 100%;
       border-radius: 10px;
     }
 
     .price {
-      font-size: 24px;
+      font-size: 20px;
       color: #2ecc71;
       margin: 10px 0;
     }
 
     .buy-button {
-      padding: 15px 25px;
+      padding: 10px 20px;
       background-color: #3498db;
       color: white;
       border: none;
       border-radius: 5px;
-      font-size: 18px;
+      font-size: 16px;
       cursor: pointer;
     }
 
@@ -54,9 +65,10 @@
 
     .pix-section {
       display: none;
-      margin-top: 20px;
+      margin-top: 10px;
       border-top: 1px solid #ccc;
-      padding-top: 20px;
+      padding-top: 10px;
+      font-size: 14px;
     }
 
     footer {
@@ -69,23 +81,15 @@
 <body>
 
 <header>
-  <h1>Loja Roblox - Personagem "Classes"</h1>
+  <h1>Loja Roblox - Personagens</h1>
 </header>
 
 <div class="container">
-  <h2>Personagem Exclusivo: Classes</h2>
-  <img src="https://via.placeholder.com/300x300.png?text=Personagem+Classes" alt="Personagem Classes">
-  <p class="price">R$5,00</p>
-  <button class="buy-button" onclick="mostrarPix()">Comprar com Pix</button>
+  <h2>Escolha seu Personagem Exclusivo</h2>
 
-  <div id="pix" class="pix-section">
-    <h3>Pagamento via Pix</h3>
-    <p>Use a chave Pix abaixo:</p>
-    <strong>📱 67 998971137</strong>
-    <p>Após o pagamento, envie o comprovante para o WhatsApp abaixo.</p>
-    <a href="https://wa.me/5567998971137" target="_blank" style="text-decoration:none;">
-      <button class="buy-button" style="background-color:#25d366;">Enviar Comprovante via WhatsApp</button>
-    </a>
+  <!-- Lista de classes -->
+  <div id="classes">
+    <!-- JavaScript irá inserir aqui -->
   </div>
 </div>
 
@@ -94,8 +98,39 @@
 </footer>
 
 <script>
-  function mostrarPix() {
-    document.getElementById("pix").style.display = "block";
+  const classes = [
+    "Músico", "Mineiro", "Doutor", "Incendiário", "Necromante", "Mestre de Pacotes",
+    "Vaqueiro", "O Álamo", "Condutor", "Lobisomem", "Rolo Alto", "Demolidor",
+    "Leiteiro", "Sobrevivente", "Vampiro", "Caçador", "Sacerdote", "Presidente",
+    "Zumbi", "Armado de Ferro"
+  ];
+
+  const container = document.getElementById("classes");
+
+  classes.forEach((classe, index) => {
+    const id = `pix-${index}`;
+    const html = `
+      <div class="class-card">
+        <h3>${classe}</h3>
+        <img src="https://via.placeholder.com/250x250.png?text=${encodeURIComponent(classe)}" alt="${classe}">
+        <p class="price">R$5,00</p>
+        <button class="buy-button" onclick="mostrarPix('${id}')">Comprar com Pix</button>
+        <div id="${id}" class="pix-section">
+          <h4>Pagamento via Pix</h4>
+          <p>Use a chave Pix abaixo:</p>
+          <strong>📱 67 998971137</strong>
+          <p>Após o pagamento, envie o comprovante para o WhatsApp abaixo.</p>
+          <a href="https://wa.me/5567998971137" target="_blank" style="text-decoration:none;">
+            <button class="buy-button" style="background-color:#25d366;">Enviar Comprovante via WhatsApp</button>
+          </a>
+        </div>
+      </div>
+    `;
+    container.innerHTML += html;
+  });
+
+  function mostrarPix(id) {
+    document.getElementById(id).style.display = "block";
   }
 </script>
 
