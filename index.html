@@ -162,12 +162,10 @@
 </head>
 <body>
 
-<!-- Música de fundo -->
 <audio id="bg-music" loop>
   <source src="https://cdn.pixabay.com/audio/2022/08/04/audio_7cb1c3d770.mp3" type="audio/mp3">
 </audio>
 
-<!-- Som de clique -->
 <audio id="click-sound">
   <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_d5ba243a27.mp3" type="audio/mp3">
 </audio>
@@ -177,7 +175,6 @@
   <h1>Loja Roblox - Personagens</h1>
 </header>
 
-<!-- Botão de controle da música -->
 <div id="music-controls">
   <button id="music-button" onclick="toggleMusic()">Tocar Música</button>
 </div>
@@ -224,10 +221,11 @@
 
   classes.forEach((classe, index) => {
     const id = `pix-${index}`;
+    const imgNome = classe.toLowerCase().replace(/ /g, '-').normalize("NFD").replace(/[̀-ͯ]/g, '') + '.png';
     const html = `
       <div class="class-card">
         <h3>${classe}</h3>
-        <img src="https://via.placeholder.com/250x250.png?text=${encodeURIComponent(classe)}" alt="${classe}">
+        <img src="imagens/${imgNome}" alt="${classe}" width="250" height="250">
         <p class="price">R$5,00</p>
         <button class="buy-button" onclick="mostrarPix('${id}')">Comprar com Pix</button>
         <div id="${id}" class="pix-section">
